@@ -1,0 +1,15 @@
+D:\repos\AlgoLab5\AlgoLab5\bin\Debug\net6.0\AlgoLab5.exe
+D:\repos\AlgoLab5\AlgoLab5\bin\Debug\net6.0\AlgoLab5.deps.json
+D:\repos\AlgoLab5\AlgoLab5\bin\Debug\net6.0\AlgoLab5.runtimeconfig.json
+D:\repos\AlgoLab5\AlgoLab5\bin\Debug\net6.0\AlgoLab5.dll
+D:\repos\AlgoLab5\AlgoLab5\bin\Debug\net6.0\AlgoLab5.pdb
+D:\repos\AlgoLab5\AlgoLab5\obj\Debug\net6.0\AlgoLab5.csproj.AssemblyReference.cache
+D:\repos\AlgoLab5\AlgoLab5\obj\Debug\net6.0\AlgoLab5.GeneratedMSBuildEditorConfig.editorconfig
+D:\repos\AlgoLab5\AlgoLab5\obj\Debug\net6.0\AlgoLab5.AssemblyInfoInputs.cache
+D:\repos\AlgoLab5\AlgoLab5\obj\Debug\net6.0\AlgoLab5.AssemblyInfo.cs
+D:\repos\AlgoLab5\AlgoLab5\obj\Debug\net6.0\AlgoLab5.csproj.CoreCompileInputs.cache
+D:\repos\AlgoLab5\AlgoLab5\obj\Debug\net6.0\AlgoLab5.dll
+D:\repos\AlgoLab5\AlgoLab5\obj\Debug\net6.0\refint\AlgoLab5.dll
+D:\repos\AlgoLab5\AlgoLab5\obj\Debug\net6.0\AlgoLab5.pdb
+D:\repos\AlgoLab5\AlgoLab5\obj\Debug\net6.0\AlgoLab5.genruntimeconfig.cache
+D:\repos\AlgoLab5\AlgoLab5\obj\Debug\net6.0\ref\AlgoLab5.dll
