@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Security.AccessControl;
 using System.IO;
+using System.Linq;
 using System.Runtime;
 
 namespace AlgoLab5
@@ -10,13 +11,13 @@ namespace AlgoLab5
     {
         public int CurElem { get; set; } //указатель на текущий элемент
         public bool Eof { get; set; } //конец файла
-
+        public string Filename { get; set; }
         public int SizeOfSeries { get; set; } = 1;
         public int CountOfSeries { get; set; } = 0;
         public StreamReader Reader { get; set; } 
         public StreamWriter Writer { get; set; }
-        
-        
+
+        public int countOfEmptyElements { get; set; } = 0; //костыльное говно
         public void ReadNext() //чтение след элемента
         {
             Eof = Reader.EndOfStream;
@@ -26,16 +27,30 @@ namespace AlgoLab5
 
         public void StartRead(string path) //начать чтение
         {
-            CountOfSeries = 0;
+            Filename = path;
+            //CountOfSeries = 0;
             Reader = new StreamReader(path);
             ReadNext();
         }
 
         public void StartWrite(string path) //начать запись
         {
+            Filename = path;
             Writer = new StreamWriter(path);
         }
-
+        
+        public void StartRead() //начать чтение
+        {
+            //CountOfSeries = 0;
+            Reader = new StreamReader(Filename);
+            ReadNext();
+        }
+        
+        public void StartWrite() //начать запись
+        {
+            Writer = new StreamWriter(Filename);
+        }
+        
         public void Copy(Sequence other) //копировать в this след элемент из другого файла
         {
             CurElem = other.CurElem;
@@ -50,6 +65,8 @@ namespace AlgoLab5
                 if(!other.Eof)
                     Copy(other);
             }
+
+            CountOfSeries++;
         }
 
         public void Merge(List<Sequence> list)
@@ -61,17 +78,26 @@ namespace AlgoLab5
                 {
                     if (!sequence.Eof)
                     {
-                        numbers.Add(sequence.CurElem);
-                        sequence.ReadNext();
+                        if (sequence.countOfEmptyElements != 0)
+                        {
+                            sequence.countOfEmptyElements--;
+                            countOfEmptyElements++;
+                        }
+                        else
+                        {
+                            numbers.Add(sequence.CurElem);
+                            sequence.ReadNext();
+                        }
                     }
                 }
+                sequence.CountOfSeries--;
             }
             numbers.Sort();
             foreach (var number in numbers)
             {
                 Writer.WriteLine(number);
             }
-
+           
             CountOfSeries++;
         }
         
