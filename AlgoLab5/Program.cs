@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Data;
 using System.Diagnostics.Metrics;
 using System.IO;
 using System.Linq;
@@ -32,6 +33,7 @@ namespace AlgoLab5
             int j = 0; // текущий обрабатываемый файл
 
             HorizontalDistribution(list, P, j, emptySeries, fibonacciDistribution, a, ref level);
+            PrintResult(list, P, emptySeries);
             MergePhase(list, P, emptySeries, fibonacciDistribution, level);
         }
 
@@ -61,10 +63,7 @@ namespace AlgoLab5
             int level)
         {
             int k = 0;
-            foreach (var sequence in list)
-            {
-                sequence.CountOfSeries = fibonacciDistribution[k++]; // распределение количества серий по фибоначчи
-            }
+            
 
             for (int i = 1; i < P; i++)
             {
@@ -116,7 +115,9 @@ namespace AlgoLab5
                         list[P].Merge(mergeList);
                     }
                 }
-
+                
+                PrintResult(list, P, emptySeries);
+                
                 list[P].CloseWriter();
                 list[P - 1].CloseReader();
                 int series = 0;
@@ -187,13 +188,83 @@ namespace AlgoLab5
                 {
                     list[i].CloseWriter();
                 }
+
+                int tmp = 0;
+                foreach (var sequence in list)
+                {
+                    sequence.CountOfSeries = fibonacciDistribution[tmp++]; // распределение количества серий по фибоначчи
+                }
             }
         }
 
+        public static void PrintResult(List<Tape> list, int P,  List<int> emptySeries)
+        {
+            Dictionary<Tape, int> printMap = new Dictionary<Tape, int>();
+            for (int i = 0; i <= P; i++)
+            {
+                printMap.Add(list[i], emptySeries[i]);
+            }
 
+            var Map = printMap.OrderBy(x => x.Key.Filename);
+            
+
+            foreach (var i in Map)
+            {
+                Console.Write(i.Key.Filename + "\t\t");
+            }
+            
+            Console.WriteLine();
+            
+            foreach (var i in Map)
+            {
+                Console.Write(i.Key.CountOfSeries + "(" + i.Value + ")" + "\t\t");
+            }
+
+            Console.WriteLine();
+        }
+
+        private static void Menu()
+        {
+            while (true)
+            {
+                int countOfFiles;
+                Console.WriteLine("Введите количество файлов участвующих в сортировке (минимум 3 файла).");
+                while (!int.TryParse(Console.ReadLine(), out countOfFiles) || countOfFiles < 3)
+                {
+
+                    Console.WriteLine("Неверный ввод. Введите минимум 3 файла.");
+                }
+
+                int count;
+                Console.WriteLine("Введите количество начальных элементов в входном файле.");
+                while (!int.TryParse(Console.ReadLine(), out count) || count <= 0)
+                {
+                    Console.WriteLine("Неверный ввод. Повторите.");
+                }
+                FillFile(count, countOfFiles - 1 );
+                PolyPhase(countOfFiles);
+                Console.WriteLine("Выйти? (y)");
+                if (Console.ReadLine() == "y")
+                    break;
+            }
+        }
+
+        private static void FillFile(int count, int fileName)
+        {
+            StreamWriter file = new StreamWriter("f" + fileName + ".txt");
+            Random rnd = new Random();
+            for (int i = 0; i < count; i++)
+            {
+                file.WriteLine(rnd.Next(-999999, 999999));
+            }
+            file.Close();
+        }
+        
+        
+        
         public static void Main()
         {
-            PolyPhase(6);
+            Menu();
         }
     }
 }

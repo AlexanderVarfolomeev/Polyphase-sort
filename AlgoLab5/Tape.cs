@@ -11,7 +11,7 @@ namespace AlgoLab5
     {
         private int CurElem { get; set; } //указатель на текущий элемент
         public bool Eof { get; set; } //конец файла
-        private string Filename { get; set; }
+        public string Filename { get; set; }
         public int SizeOfSeries { get; set; } = 1;
         public int CountOfSeries { get; set; } = 0;
         private StreamReader Reader { get; set; }
